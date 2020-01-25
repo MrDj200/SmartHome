@@ -3,7 +3,7 @@
   "config": {
     "port": "6669"
   },
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Returns rooms and logs of rooms over restful api",
   "main": "smartrestapi.js",
   "scripts": {
