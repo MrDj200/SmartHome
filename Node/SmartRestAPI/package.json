@@ -1,0 +1,11 @@
+{
+  "name": "smartrestapi",
+  "version": "1.0.0",
+  "description": "Returns rooms and logs of rooms over restful api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "MrDj200",
+  "license": "ISC"
+}
