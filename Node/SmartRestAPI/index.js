@@ -1,9 +1,15 @@
+var pjson = require('./package.json');
+
 var http = require('http');
 var url = require('url');
 var fs = require('fs');
 
 let isDev = process.platform === 'win32';// Dev env var
 let dataPath = (isDev) ? 'testData' : '/home/pi/Desktop/Stats'; // Set the dataPath according to platform
+
+var port = pjson.config.port;
+var ver = pjson.version;
+console.log(`Starting SmartRestAPI version ${ver} on Port ${port}. Also: ${process.env.npm_package_version}`);
 
 let roomsWithType = fs.readdirSync(dataPath, {withFileTypes: true}); // Gets all files in the dataPath with file type
 
@@ -48,4 +54,4 @@ http.createServer(function (req, res) {
 
     res.writeHead(_response.code); // Sending the Response code
     res.end(JSON.stringify(_response)); // Sending the Response
-}).listen(6669); // Listens on this port
+}).listen(port); // Listens on this port

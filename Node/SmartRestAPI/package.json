@@ -1,11 +1,22 @@
 {
   "name": "smartrestapi",
+  "config": {
+    "port": "6669"
+  },
   "version": "1.0.0",
   "description": "Returns rooms and logs of rooms over restful api",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MrDj200/SmartHome.git"
   },
   "author": "MrDj200",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MrDj200/SmartHome/issues"
+  },
+  "homepage": "https://github.com/MrDj200/SmartHome"
 }
