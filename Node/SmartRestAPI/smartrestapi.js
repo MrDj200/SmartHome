@@ -1,8 +1,8 @@
-var pjson = require('./package.json');
+var pjson = require('./package.json'); // Import package.json to have access to the options
 
-var http = require('http');
-var url = require('url');
-var fs = require('fs');
+var http = require('http'); // internet shitto
+var url = require('url'); // url parsing
+var fs = require('fs'); // File System
 
 let isDev = process.platform === 'win32';// Dev env var
 let dataPath = (isDev) ? 'testData' : '/home/pi/Desktop/Stats'; // Set the dataPath according to platform
