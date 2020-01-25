@@ -2,22 +2,23 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+//var shit = fetch('http://pihole.fritz.box:6669');
+
+function fuck(shitto) {
+  console.log(shitto.target);
+}
+
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <table style={{width:'50%'}}>
+            <tr>
+              <th><u>Raum</u></th>            
+            </tr>
+            <tr><td><button onClick={fuck}>Jojojojojojoj</button></td></tr>
+        </table>
       </header>
     </div>
   );
