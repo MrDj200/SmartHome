@@ -3,11 +3,12 @@
   "config": {
     "port": "6669"
   },
-  "version": "1.0.0",
+  "version": "0.1.1",
   "description": "Returns rooms and logs of rooms over restful api",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "nohup node index.js > output.log &",
+    "stop": "kill $(ps -ef|grep index.js | awk '{print $2}' )"
   },
   "repository": {
     "type": "git",
