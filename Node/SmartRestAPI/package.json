@@ -5,10 +5,13 @@
   },
   "version": "0.1.1",
   "description": "Returns rooms and logs of rooms over restful api",
-  "main": "index.js",
+  "main": "smartrestapi.js",
   "scripts": {
-    "start": "nohup node index.js > output.log &",
-    "stop": "kill $(ps -ef|grep index.js | awk '{print $2}' )"
+    "start": "forever start smartrestapi.js",
+    "stop": "forever stop smartrestapi.js",
+    "list": "forever list",
+    "oldstart": "nohup node index.js > output.log &",
+    "oldstop": "kill $(ps -ef|grep index.js | awk '{print $2}' )"
   },
   "repository": {
     "type": "git",
@@ -19,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/MrDj200/SmartHome/issues"
   },
-  "homepage": "https://github.com/MrDj200/SmartHome"
+  "homepage": "https://github.com/MrDj200/SmartHome",
+  "dependencies": {
+    "forever": "^2.0.0"
+  }
 }
