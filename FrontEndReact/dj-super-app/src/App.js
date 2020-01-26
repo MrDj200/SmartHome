@@ -11,15 +11,18 @@ var rooms = [
   "Kueche",
   "Wohnzimmer"
 ];
+var test = ['flupp', 'flop'];
 
-function fuck(shitto) {
+function tableClicker(shitto) {
   console.log(shitto.target);
+  renderArrayButtons(test);
 }
 
 function renderArrayButtons(_array) {
+  console.log('Rendering table');
   var _iDunno = [];
   _array.forEach(element => {
-    _iDunno.push(<tr key={element}><td><button onClick={fuck}>{element}</button></td></tr>);    
+    _iDunno.push(<tr key={`mainTableEntry${element}`}><td><button onClick={tableClicker}>{element}</button></td></tr>);    
   });
   return(_iDunno);
 }
@@ -29,10 +32,10 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <table style={{width:'50%'}}>
+        <table style={{width:'50%'}} key='mainTable'>
           <tbody>
-            <tr>
-              <th><u>Raum</u></th>            
+            <tr key='mainTableTitle'>
+              <th><u>Räume</u></th>            
             </tr>
             {renderArrayButtons(rooms)}
           </tbody>
