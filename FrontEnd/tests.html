@@ -33,8 +33,7 @@
                 let _fuck = new Date(temp[i].curTime);
                 convertedArray.push([_fuck, temp[i].setTemp, temp[i].isTemp]);
             };    
-            //console.log(convertedArray);
-            console.log(JSON.stringify(convertedArray));
+            console.log(convertedArray);
             var data = google.visualization.arrayToDataTable(convertedArray);
 
             //var data = new google.visualization.DataTable();

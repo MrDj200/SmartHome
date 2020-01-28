@@ -3,6 +3,9 @@
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <link rel="stylesheet" href="index.css">
+    <script type="text/javascript">
+        var curPage = 'rooms'; 
+    </script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="chartStuff.js"></script>
     <title>Log Reader</title>
@@ -15,8 +18,6 @@
                 $url .= $key . "=" . $value . "&";
             };
         };
-        
-        echo $url;
 
         function GetRequest($arg_1){
             $_ch = curl_init($arg_1);
@@ -33,9 +34,7 @@
 </head>
 
 <script type="text/javascript">
-
-    var curPage = 'rooms'; 
-
+ 
     function getURLVars() {
         let _urlVars = {};
         let _temp = [];
@@ -88,7 +87,7 @@
                 curPage = 'logs';
             }else if (response.log) {
                 curPage = 'log';
-                drawChart(response.log);
+                setData(response.log);
             };
             
         </script>        
