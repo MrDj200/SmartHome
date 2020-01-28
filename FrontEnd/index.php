@@ -49,10 +49,10 @@
         return _urlVars;
     }
 
-    function tableClicker(shitto) {       
+    function tableClicker(_btnInfo) {       
         let _vars = getURLVars();
         let _targetUrl = '';
-        let _btn = shitto.innerHTML.trim();
+        let _btn = _btnInfo.innerHTML.trim();
 
         if (curPage === 'rooms') {
             _targetUrl += `room=${_btn}`;
@@ -64,11 +64,11 @@
 
     };
 
-    function loadTable(id, title, dataArray) {
-        let _table = document.getElementById(id);
-        let _html = `<tr><th><u>${title}</u></th></tr>`;
+    function loadTable(_id, _title, _dataArray) {
+        let _table = document.getElementById(_id);
+        let _html = `<tr><th><u>${_title}</u></th></tr>`;
 
-        dataArray.forEach(_element => {
+        _dataArray.forEach(_element => {
             _html += `<tr><td><button class="tableButton" onClick="tableClicker(this)"> ${_element} </button></td></tr>`;
         });
         _table.innerHTML = _html;
