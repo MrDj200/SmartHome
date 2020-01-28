@@ -7,6 +7,11 @@ function setData(params) {
     console.log(`Loaded Google charts!`);
 }
 
+function dateToReadable(params) {
+    params = params[0];
+    return `${params.getDate()}.${params.getMonth() + 1}.${params.getFullYear()} | ${params.getHours()}:${params.getMinutes()}`;
+}
+
 
 function drawChart() {
     _temp = data;
@@ -21,7 +26,8 @@ function drawChart() {
 
     // https://developers.google.com/chart/interactive/docs/gallery/areachart#configuration-options
     let _options = {
-        title: 'Temperatur über Zeit',
+        title: `${dateToReadable(_convertedArray[1])} -- bis -- ${dateToReadable(_convertedArray[_convertedArray.length - 1])}`,
+        titleTextStyle: {color: 'white', bold: true},
         hAxis: {
             title: 'Zeit',
             format: 'HH:mm',
