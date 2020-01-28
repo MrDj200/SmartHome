@@ -26,14 +26,15 @@
             }
 
             var temp = json;
-
+            //console.log(temp);
             var convertedArray = [];            
             convertedArray[0] = ["Zeit", "Soll", "Ist"];
             for (let i in temp){
                 let _fuck = new Date(temp[i].curTime);
                 convertedArray.push([_fuck, temp[i].setTemp, temp[i].isTemp]);
             };    
-            console.log(convertedArray);
+            //console.log(convertedArray);
+            console.log(JSON.stringify(convertedArray));
             var data = google.visualization.arrayToDataTable(convertedArray);
 
             //var data = new google.visualization.DataTable();
