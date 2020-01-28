@@ -47,6 +47,8 @@ function drawChart() {
             startup: true,
             duration: 1000,
             easing: 'out'
+        },
+        legend: {textStyle: {color: 'white'}
         }
     };
 
