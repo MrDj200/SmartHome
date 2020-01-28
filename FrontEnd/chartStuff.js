@@ -1,6 +1,7 @@
 var data;
 function setData(params) {
     data = params;
+    console.log(data);
     // Load the Visualization API and the corechart package.
     google.charts.load('current', { packages: ['corechart'], callback: drawChart, language: 'de' });
     console.log(`Loaded Google charts!`);
