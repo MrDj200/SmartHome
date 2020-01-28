@@ -59,7 +59,7 @@
             _targetUrl += `room=${_vars.room}&log=${_btn}`;
         } 
 
-        location.href = `/?${_targetUrl}`;
+        location.href = `${location.pathname}?${_targetUrl}`;
 
     };
 
