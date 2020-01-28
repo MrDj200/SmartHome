@@ -51,7 +51,7 @@
     function tableClicker(_btnInfo) {       
         let _vars = getURLVars();
         let _targetUrl = '';
-        let _btn = _btnInfo.innerHTML.trim();
+        let _btn = _btnInfo.name.trim();
 
         if (curPage === 'rooms') {
             _targetUrl += `room=${_btn}`;
@@ -63,12 +63,15 @@
 
     };
 
-    function loadTable(_id, _title, _dataArray) {
+    function loadTable(_id, _title, _dataArray, _nameArray) {
+        _nameArray = _nameArray || _dataArray;
         let _table = document.getElementById(_id);
         let _html = `<tr><th><u>${_title}</u></th></tr>`;
+        let _i = 0; 
 
-        _dataArray.forEach(_element => {
-            _html += `<tr><td><button class="tableButton" onClick="tableClicker(this)"> ${_element} </button></td></tr>`;
+        _nameArray.forEach(_element => {
+            _html += `<tr><td><button name="${_dataArray[_i]}" class="tableButton" onClick="tableClicker(this)"> ${_element} </button></td></tr>`;
+            _i++;
         });
         _table.innerHTML = _html;
     } 
@@ -83,7 +86,14 @@
                 loadTable('main-table', 'Räume', response.rooms); 
             }else if (response.logs) {
                 // TODO: Rename logs to readable times
-                loadTable('main-table', 'Logs', response.logs);
+                let _readableLogs = [];
+                
+                response.logs.forEach(element => {
+                    let _dt = new Date(Date.parse(element.split('.')[0]));
+                    _readableLogs.push(`${_dt.getHours()}:${_dt.getMinutes()} | ${_dt.getDate()}.${_dt.getMonth() + 1}.${_dt.getFullYear()}`);
+                });
+
+                loadTable('main-table', 'Logs', response.logs, _readableLogs);
                 curPage = 'logs';
             }else if (response.log) {
                 curPage = 'log';
