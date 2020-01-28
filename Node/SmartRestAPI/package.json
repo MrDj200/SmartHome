@@ -1,7 +1,7 @@
 {
   "name": "smartrestapi",
   "config": {
-    "port": "6669"
+    "port": "6969"
   },
   "version": "0.2.0",
   "description": "Returns rooms and logs of rooms over restful api",
