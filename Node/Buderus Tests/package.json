@@ -1,0 +1,12 @@
+{
+  "name": "buderus-tests",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "MrDj200",
+  "license": "ISC",
+  "dependencies": {
+    "aes-js": "^3.1.2",
+    "request": "^2.88.0"
+  }
+}
