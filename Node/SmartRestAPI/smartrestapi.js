@@ -11,14 +11,20 @@ var port = pjson.config.port;
 var ver = pjson.version;
 console.log(`Starting SmartRestAPI version ${ver} on Port ${port}. Also: ${process.env.npm_package_version}`);
 
-let roomsWithType = fs.readdirSync(dataPath, {withFileTypes: true}); // Gets all files in the dataPath with file type
 
-let rooms = []; // Empty array where the rooms will be stored
-roomsWithType.forEach(function (_val, _i, _strArray) {
-    if (_val.isDirectory()) { // Checks if current file is a dir
-        rooms.push(_val.name); // Add current dir as Room to rooms array
-    }
-});
+
+var rooms = []; // Empty array where the rooms will be stored
+
+function updateRooms() {
+    rooms = [];
+    let roomsWithType = fs.readdirSync(dataPath, {withFileTypes: true}); // Gets all files in the dataPath with file type
+    roomsWithType.forEach(function (_val, _i, _strArray) {
+        if (_val.isDirectory() && !_val.name.startsWith('.')) { // Checks if current file is a dir
+            rooms.push(_val.name); // Add current dir as Room to rooms array
+        }
+    });
+}
+
 
 http.createServer(function (req, res) {    
     res.setHeader('Content-Type', 'application/json'); // Sets the return Header
@@ -32,6 +38,7 @@ http.createServer(function (req, res) {
        _response.query = _query; // Sets the query. Just for debugging 
     }
 //#endregion 
+    updateRooms();
 
     if (rooms.includes(_query.room)) { // If the given room, if any, is valid
         let _files = fs.readdirSync(`${dataPath}/${_query.room}`).toString().split(','); // Reads the dir of the room
