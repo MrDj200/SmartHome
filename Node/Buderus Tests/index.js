@@ -8,14 +8,14 @@ if (!creds.AES) {
 }
 
 var APIs = [
-    '/gateway',
-    '/system',
-    '/heatSources',
-    '/recordings',
-    '/notifications',
-    '/heatingCircuits',
-    '/solarCircuits',
-    '/dhwCircuits'
+    '/gateway'
+    //'/system',
+    //'/heatSources',
+    //'/recordings',
+    //'/notifications',
+    //'/heatingCircuits'
+    //'/solarCircuits',
+    //'/dhwCircuits'
 ];
 
 var url = "http://192.168.178.45";
@@ -24,32 +24,59 @@ var url = "http://192.168.178.45";
 
 //doAFetch(`${url}${APIs[1]}/sensors/temperatures/outdoor_t1`);
 
-console.log(doARequest(url));
+//console.log(doARequest(url));
+shit();
+async function shit() {
+    let _responses = {};
+    let _promises = [];
 
-function doARequest(_url) {
-    let _return;
-    let api = '/gateway';
-    let _options = {
-        url: _url + api,
-        headers: {
-            'Content-type': 'application/json',
-            'User-Agent': 'TeleHeater/2.2.3'
-        }
-    };
-    request.get(_options, function(error, rawResponse, body) {
-        if (!error && rawResponse.statusCode === 200) {
-            try {
-                let _response = decodeResponse(body);
-                console.log(_response.toString());
-                _return = _response;
-            } catch (e) {
-                console.error(`OwO whats this: ${e}`);
+    APIs.forEach((_val, _i) => {
+        _promises.push(doARequest(url, _val));
+    });
+
+    await Promise.all(_promises)
+        .then(_vals =>{
+            //console.log(_vals.length);
+            _vals.forEach(_val => {
+                //console.log(_val);
+                _val = JSON.parse(_val);
+                _responses[_val.id] = _val; 
+                //console.log(JSON.stringify(_val.references));
+            });
+                     
+        })
+        .catch(_error =>{
+            console.error(`Promises.all in shit() fucked up!\nError: ${_error}`);
+        });
+    
+    console.log(JSON.stringify(_responses));
+}
+
+function doARequest(_url, _api) {    
+    return new Promise((resolve, reject) => {
+        let _return;
+        _api = _api || '/gateway';
+        let _options = {
+            url: _url + _api,
+            headers: {
+                'Content-type': 'application/json',
+                'User-Agent': 'TeleHeater/2.2.3'
             }
-        }else{
-            console.error(`UwU Response Code: ${rawResponse.statusCode} \nError:${error}`);
-        }
+        };
+        
+        request.get(_options, function(error, rawResponse, body) {
+            if (!error && rawResponse.statusCode === 200) {
+                try {
+                    let _response = decodeResponse(body);
+                    resolve(_response);
+                } catch (e) {
+                    reject(`OwO whats this: ${e}`);
+                }
+            }else{
+                reject(`Request failed!\nResponse Code: ${rawResponse ? rawResponse.statusCode : 'undefined'} \n\t ${error}`);
+            }
+        })
     })
-    return _return;
 }
 
 function decodeResponse(_rawResponse) {
@@ -61,5 +88,6 @@ function decodeResponse(_rawResponse) {
     let _byteResponse = aesjs.utils.hex.toBytes(_hexResponse); // Converting the HEX response to Byte Array
     let _decryptedResponseBytes = _aesEcb.decrypt(_byteResponse); // Decrypting the Byte Array Response
     let _decryptedResponse = aesjs.utils.utf8.fromBytes(_decryptedResponseBytes); // Converting the decrypted Byte Array to String
+    _decryptedResponse = _decryptedResponse.replace(/\0/g, ""); // Sanitizing string (removing terminators chars)
     return _decryptedResponse;
 }
