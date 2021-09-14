@@ -8,14 +8,14 @@ if (!creds.AES) {
 }
 
 var APIs = [
-    '/gateway'
-    //'/system',
-    //'/heatSources',
-    //'/recordings',
-    //'/notifications',
-    //'/heatingCircuits'
-    //'/solarCircuits',
-    //'/dhwCircuits'
+    '/gateway',
+    '/system',
+    '/heatSources',
+    '/recordings',
+    '/notifications',
+    '/heatingCircuits',
+    '/solarCircuits',
+    '/dhwCircuits'
 ];
 
 var url = "http://192.168.178.45";
@@ -30,11 +30,17 @@ async function shit() {
     let _responses = {};
     let _promises = [];
 
-    APIs.forEach((_val, _i) => {
+    for (let _i = 0; _i < APIs.length; _i++) {
+        console.log(APIs[_i]);
+        let _temp = await doARequest(url, APIs[_i])
+        _responses[APIs[_i]] = JSON.parse(_temp);
+    }
+
+    /*APIs.forEach((_val, _i) => {
         _promises.push(doARequest(url, _val));
     });
 
-    await Promise.all(_promises)
+    /*await Promise.all(_promises)
         .then(_vals =>{
             //console.log(_vals.length);
             _vals.forEach(_val => {
@@ -48,6 +54,7 @@ async function shit() {
         .catch(_error =>{
             console.error(`Promises.all in shit() fucked up!\nError: ${_error}`);
         });
+    */
     
     console.log(JSON.stringify(_responses));
 }
